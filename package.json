@@ -1,0 +1,14 @@
+{
+  "name": "thumbnailer",
+  "version": "0.0.0",
+  "description": "Generate thumbnails from images",
+  "author": "Mark Omarov",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "packageManager": "pnpm@9.15.1",
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  }
+}

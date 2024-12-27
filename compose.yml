@@ -1,0 +1,70 @@
+services:
+  db:
+    container_name: thumbnailer-db
+    image: postgres:17.2
+    restart: always
+    shm_size: 128mb
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=thumbnailer
+    volumes:
+      - ./.volumes/postgres:/var/lib/postgresql/data
+
+  minio:
+    container_name: thumbnailer-storage
+    image: minio/minio:RELEASE.2024-12-18T13-15-44Z-cpuv1
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - ./.volumes/minio:/data
+    command: server /data --console-address ":9001"
+
+  api:
+    container_name: thumbnailer-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=thumbnailer
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=9000
+      - PROCESSOR_WEBHOOK_URL=http://processor:3001/process
+    depends_on:
+      - db
+      - minio
+
+  processor:
+    container_name: thumbnailer-processor
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: processor
+    ports:
+      - 3001:3001
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=thumbnailer
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=9000
+    depends_on:
+      - db
+      - minio
