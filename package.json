@@ -7,6 +7,9 @@
   "engines": {
     "node": ">=22.12"
   },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm"
+  },
   "packageManager": "pnpm@9.15.1",
   "devDependencies": {
     "prettier": "^3.4.2",
