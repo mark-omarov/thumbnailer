@@ -1,5 +1,5 @@
 {
-  "name": "@thumbnailer/db",
+  "name": "@thumbnailer/minio",
   "version": "0.0.0",
   "author": "Mark Omarov",
   "license": "MIT",
@@ -16,14 +16,11 @@
     "node": ">=22.12"
   },
   "dependencies": {
-    "drizzle-orm": "^0.38.3",
-    "pg": "^8.13.1",
+    "minio": "^8.0.3",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
-    "@types/pg": "^8.11.10",
-    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }
