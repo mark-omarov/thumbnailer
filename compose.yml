@@ -104,6 +104,10 @@ services:
       - REDIS_PORT=6379
       - MINIO_ENDPOINT=minio
       - MINIO_PORT=9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_SSL=false
+      - MINIO_BUCKET=thumbnails
       - PROCESSOR_WEBHOOK_URL=http://processor:3001/process
     depends_on:
       db:
@@ -132,6 +136,10 @@ services:
       - REDIS_PORT=6379
       - MINIO_ENDPOINT=minio
       - MINIO_PORT=9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_SSL=false
+      - MINIO_BUCKET=thumbnails
     depends_on:
       db:
         condition: service_healthy

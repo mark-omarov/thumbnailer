@@ -4,3 +4,5 @@ node_modules
 *.md
 dist
 .volumes
+.turbo
+tsconfig.tsbuildinfo
