@@ -1,3 +1,4 @@
 .volumes/
 dist/
 node_modules/
+tsconfig.tsbuildinfo

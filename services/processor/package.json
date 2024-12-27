@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "author": "Mark Omarov",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-      "build": "echo 'Building Processor'",
-      "start": "echo 'Starting Processor'"
+    "build": "echo 'Building Processor'",
+    "start": "echo 'Starting Processor'"
   },
+  "packageManager": "pnpm@9.15.1",
   "engines": {
     "node": ">=22.12"
   }

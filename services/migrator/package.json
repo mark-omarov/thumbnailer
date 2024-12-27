@@ -1,0 +1,20 @@
+{
+  "name": "@thumbnailer/migrator",
+  "version": "0.0.0",
+  "author": "Mark Omarov",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "generate": "pnpm exec drizzle-kit generate",
+    "migrate": "pnpm exec drizzle-kit migrate"
+  },
+  "packageManager": "pnpm@9.15.1",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "dependencies": {
+    "@thumbnailer/db": "workspace:~",
+    "drizzle-orm": "^0.38.3",
+    "drizzle-kit": "^0.30.1"
+  }
+}

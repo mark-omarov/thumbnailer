@@ -12,6 +12,16 @@ services:
       - POSTGRES_DB=thumbnailer
     volumes:
       - ./.volumes/postgres:/var/lib/postgresql/data
+    networks:
+      - internal
+    
+  adminer:
+    container_name: thumbnailer-adminer
+    image: adminer:latest
+    ports:
+      - 8080:8080
+    networks:
+      - internal
 
   minio:
     container_name: thumbnailer-storage
@@ -25,7 +35,41 @@ services:
     volumes:
       - ./.volumes/minio:/data
     command: server /data --console-address ":9001"
+    networks:
+      - internal
+    
+  redis:
+    container_name: thumbnailer-redis
+    image: redis:7.4.1-alpine
+    ports:
+      - 6379:6379
+    networks:
+      - internal
 
+  redisinsight:
+    image: redislabs/redisinsight:2.50
+    container_name: thumbnailer-redisinsight
+    ports:
+      - 5540:5540
+    volumes:
+      - redisinsight:/data
+    networks:
+      - internal
+
+  migrator:
+    container_name: thumbnailer-migrator
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: migrator
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/thumbnailer
+    depends_on:
+      - db
+    networks:
+      - internal
+    
   api:
     container_name: thumbnailer-api
     build:
@@ -36,17 +80,19 @@ services:
       - 3000:3000
     environment:
       - NODE_ENV=development
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=thumbnailer
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/thumbnailer
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
       - MINIO_ENDPOINT=minio
       - MINIO_PORT=9000
       - PROCESSOR_WEBHOOK_URL=http://processor:3001/process
     depends_on:
       - db
       - minio
+      - redis
+      - migrator
+    networks:
+      - internal
 
   processor:
     container_name: thumbnailer-processor
@@ -58,13 +104,20 @@ services:
       - 3001:3001
     environment:
       - NODE_ENV=development
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=thumbnailer
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/thumbnailer
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
       - MINIO_ENDPOINT=minio
       - MINIO_PORT=9000
     depends_on:
       - db
       - minio
+      - redis
+      - migrator
+    networks:
+      - internal
+
+networks:
+  internal:
+volumes:
+  redisinsight:
