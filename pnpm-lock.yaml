@@ -89,15 +89,6 @@ importers:
       '@thumbnailer/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      '@types/express':
-        specifier: ^5.0.0
-        version: 5.0.0
-      '@types/multer':
-        specifier: ^1.4.12
-        version: 1.4.12
-      bullmq:
-        specifier: ^5.34.5
-        version: 5.34.5
       drizzle-orm:
         specifier: ^0.38.3
         version: 0.38.3(@types/pg@8.11.10)(pg@8.13.1)
@@ -114,6 +105,12 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.0
+      '@types/multer':
+        specifier: ^1.4.12
+        version: 1.4.12
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -141,9 +138,6 @@ importers:
       '@thumbnailer/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      bullmq:
-        specifier: ^5.34.5
-        version: 5.34.5
       drizzle-orm:
         specifier: ^0.38.3
         version: 0.38.3(@types/pg@8.11.10)(pg@8.13.1)
@@ -154,6 +148,9 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
+      '@types/node':
+        specifier: ^22.10.2
+        version: 22.10.2
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
