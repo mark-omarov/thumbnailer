@@ -2,6 +2,7 @@
 init:
 	@pnpm install
 	@mkdir -p .volumes
+	@pnpm exec turbo build
 
 .PHONY: up
 up:
