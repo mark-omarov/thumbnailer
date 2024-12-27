@@ -9,7 +9,7 @@ export function createApp() {
   app.use('/jobs', jobRouter);
 
   app.get('/health', (_req, res) => {
-    res.status(200).send('OK');
+    res.status(200).json({ status: 'OK' });
   });
 
   return app;
