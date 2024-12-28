@@ -4,7 +4,7 @@ import type {
   JobStatus,
 } from '@thumbnailer/shared';
 
-type ProcessThumbnailDeps = {
+type ProcessThumbnaiOpts = {
   storage: StoragePort;
   jobRepository: JobRepositoryPort;
 };
@@ -31,7 +31,7 @@ export async function updateJobStatus(
 export async function processThumbnail(
   jobId: string,
   originalImagePath: string,
-  { storage, jobRepository }: ProcessThumbnailDeps
+  { storage, jobRepository }: ProcessThumbnaiOpts
 ): Promise<void> {
   const sourceBuffer = await storage.getObject(originalImagePath);
   const thumbnailBuffer = await createThumbnail(sourceBuffer);
