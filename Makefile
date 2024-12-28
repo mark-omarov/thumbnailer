@@ -15,3 +15,7 @@ down:
 .PHONY: build
 build:
 	@docker compose build
+
+.PHONY: test
+test:
+	@pnpm exec turbo test
