@@ -10,14 +10,15 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "tsc --noEmit && vitest"
   },
   "engines": {
     "node": ">=22.12"
   },
   "dependencies": {
-    "@thumbnailer/minio": "workspace:*",
     "@thumbnailer/db": "workspace:*",
+    "@thumbnailer/minio": "workspace:*",
     "bullmq": "^5.34.5"
   },
   "devDependencies": {
