@@ -20,9 +20,9 @@ CMD [ "pnpm", "migrate" ]
 FROM base AS api
 COPY --from=build /prod/api /prod/api
 WORKDIR /prod/api
-CMD [ "pnpm", "start" ]
+CMD [ "node", "dist/index.js" ]
 
 FROM base AS processor
 COPY --from=build /prod/processor /prod/processor
 WORKDIR /prod/processor
-CMD [ "pnpm", "start" ]
+CMD [ "node", "dist/index.js" ]

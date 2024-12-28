@@ -4,6 +4,10 @@
   "author": "Mark Omarov",
   "license": "MIT",
   "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "generate": "pnpm exec drizzle-kit generate",
     "migrate": "pnpm exec drizzle-kit migrate"
