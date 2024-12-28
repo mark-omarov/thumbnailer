@@ -1,4 +1,4 @@
-import { Queue, Worker, type Job } from 'bullmq';
+import { Queue, Worker } from 'bullmq';
 
 import type { JobQueuePort } from '../ports/job-queue.port.js';
 
