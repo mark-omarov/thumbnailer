@@ -8,7 +8,8 @@
     "node": ">=22.12"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "check:format": "pnpm exec prettier --check ."
   },
   "packageManager": "pnpm@9.15.1",
   "devDependencies": {

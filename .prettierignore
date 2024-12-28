@@ -1,1 +1,5 @@
 pnpm-lock.yaml
+
+# auto-generated drizzle files
+
+drizzle/

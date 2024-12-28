@@ -15,12 +15,12 @@ services:
     networks:
       - internal
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d thumbnailer || exit 1"]
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d thumbnailer || exit 1']
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 5s
-    
+
   adminer:
     container_name: thumbnailer-adminer
     image: adminer:latest
@@ -44,12 +44,12 @@ services:
     networks:
       - internal
     healthcheck:
-      test: ["CMD", "mc", "ready", "local"]
+      test: ['CMD', 'mc', 'ready', 'local']
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 5s
-    
+
   redis:
     container_name: thumbnailer-redis
     image: redis:7.4.1-alpine
@@ -58,7 +58,7 @@ services:
     networks:
       - internal
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -88,7 +88,7 @@ services:
         condition: service_healthy
     networks:
       - internal
-    
+
   api:
     container_name: thumbnailer-api
     build:
