@@ -267,7 +267,6 @@ They rely on the following services that can be hosted separately if needed:
 - OpenAPI spec is missing. Adding this would make the APIs more transpacent and serve as documentation for other developers.
 - There's an issue with naming collisions. Right now, if someone uploads a file named `thumbnail`, there could be a collision between original image and thumbnail. The fix is simple, a different naming schemen could be employed, but it's importance depends whether I wish to preserve the original image or not.
 - The system is mostly stateless and scalable, but the job statuses might need refinement to ensure two processors don't process the same job simultaneously. This would require locking or load balancing.
-- I left out Postgres indexing, might add it shortly.
 - Tests implemented with vitest, I only covered a few units so far.
 
 ## Future imporovements and production readiness
