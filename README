@@ -223,7 +223,7 @@ Otherwise, here are all available API endpoints:
 The system consists of three main services:
 
 - `api` - a simple express server responsible for creating and retrievign jobs.
-When a user upploads an image, it's stored in Minio (S3 compatible storage), saves the job's metadata in Postgres, and enqueus the message via BullMQ (Redis-based job queue).
+  When a user upploads an image, it's stored in Minio (S3 compatible storage), saves the job's metadata in Postgres, and enqueus the message via BullMQ (Redis-based job queue).
 
 - `processor` - a worker that processes the enqueued jobs. It downloads the original image from Minio, creates the thumbnail 100x100 version, and uploads the result back to Minio.
 
@@ -236,7 +236,6 @@ They rely on the following services that can be hosted separately if needed:
 - `postgres` - database to store job's metadata.
 
 - `redis` - key-value store powering BullMQ for decoupled job processing.
-
 
 ## Reasoning
 
@@ -261,10 +260,10 @@ They rely on the following services that can be hosted separately if needed:
 ## Trade-offs and what's left out
 
 - A proper observability stack (eg. Prometherus, Grafana, ELK, Datadog, New Relic) was skipped due to time constraints.
-In a production environment, we'd have structured logs, metrics, tracing, and alerting to identify and troubleshoot issues.
+  In a production environment, we'd have structured logs, metrics, tracing, and alerting to identify and troubleshoot issues.
 - Error handling is currently minimal. In production, each service would gracefully handle and report issues.
 - Input validation is skipped. I would implement input validation with Zod using express middleware. Proper validation would be essential in production environment.
-There's some form of validation, but not for inputs.
+  There's some form of validation, but not for inputs.
 - OpenAPI spec is missing. Adding this would make the APIs more transpacent and serve as documentation for other developers.
 - There's an issue with naming collisions. Right now, if someone uploads a file named `thumbnail`, there could be a collision between original image and thumbnail. The fix is simple, a different naming schemen could be employed, but it's importance depends whether I wish to preserve the original image or not.
 - The system is mostly stateless and scalable, but the job statuses might need refinement to ensure two processors don't process the same job simultaneously. This would require locking or load balancing.
@@ -287,4 +286,3 @@ Application metrics and log collection with alerting would be required for produ
 - Security
 
 As it stands there's not access control. For production environment all endpoints would require some for of restricted access.
-
