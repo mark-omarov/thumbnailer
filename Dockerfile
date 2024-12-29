@@ -12,6 +12,12 @@ RUN pnpm deploy --filter=migrator --prod /prod/migrator
 RUN pnpm deploy --filter=api --prod /prod/api
 RUN pnpm deploy --filter=processor --prod /prod/processor
 
+FROM base AS tester
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+RUN pnpm install --frozen-lockfile
+CMD [ "pnpm", "exec" ,"turbo", "test" ]
+
 FROM base AS migrator
 COPY --from=build /prod/migrator /prod/migrator
 WORKDIR /prod/migrator

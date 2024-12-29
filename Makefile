@@ -19,3 +19,7 @@ build:
 .PHONY: test
 test:
 	@pnpm exec turbo test
+
+.PHONY: tester
+tester:
+	@docker compose -f .github/ci.compose.yml up --abort-on-container-exit

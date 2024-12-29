@@ -1,0 +1,14 @@
+services:
+  tester:
+    container_name: tester
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      target: tester
+    environment:
+      - NODE_ENV=test
+    networks:
+      - internal
+
+networks:
+  internal:
