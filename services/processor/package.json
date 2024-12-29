@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "author": "Mark Omarov",
   "license": "MIT",
+  "private": true,
   "type": "module",
   "main": "dist/index.js",
   "files": [
