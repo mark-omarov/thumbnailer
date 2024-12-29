@@ -250,6 +250,8 @@ They rely on the following services that can be hosted separately if needed:
 
 - I'm a big fan and contributor of pnpm. It's workspace protocol powers this monorepo and allows easy code sharing across services. It also makes dependency management exceptionally easy.
 - For build system I often go with Nx, but decided to give Turborepo a chance. For what is required on this project, it works greatly. I primarily use it for task execution, eg. build dependencies before dependents.
+- Test runner for CI is implemented with GHA using docker compose, see details in `Makefile` and `.github/ci.compose.yml`.
+- Versioning is configured with [changesets](https://github.com/changesets/changesets). I love the file-based tracking and automated bumping and changelog generation. It can be paired with a bot and gha workflow to automate the release and publishing process, but I won't set it up for this project.
 
 3. Containerized services
 
