@@ -1,214 +1,35 @@
 # Thumbnailer
 
-A simple web-based image to thumbnail convertor.
-
-Author: [Mark Omarov](https://github.com/mark-omarov)
+A simple, web-based, image to thumbnail convertor.
 
 ## How to run
 
-Make sure you have Docker and Docker Compose, if you use Podman or any other container engine, you'll need to adjust the `Makefile` or use docker bindings in your engine.
+> [!IMPORTANT]
+> This project requires a container engine. We use Docker with Compose, but any should work as long as you got docker compose cli bindings.
 
-To run locally without LSP and editor support - `make up`.
-It will launch all services, wait for infrastructure, apply migrations, and start the application.
+To start services:
 
-To stop - `make down`.
+```bash
+make up
+```
 
-If you need the LSP and editor support (usually for development only), run `make init`.
-It will install dependencies and build the project.
+To stop services:
+
+```bash
+make down
+```
+
+To start development:
+
+```bash
+make init
+```
+
+You only need it for LSP and editor support, unless you enjoy pain, of course.
 
 ### Available APIs
 
-If you use [Insomia](https://insomnia.rest/), below is the json export for the API collection.
-Import it to get a better experience. Don't forget to update URLs to your environment.
-
-<details>
-<summary>API Collection</summary>
-
-```json
-{
-  "_type": "export",
-  "__export_format": 4,
-  "__export_date": "2024-12-27T15:21:22.090Z",
-  "__export_source": "insomnia.desktop.app:v9.3.2",
-  "resources": [
-    {
-      "_id": "req_40ca0a0efe96494fb37bc5bc66433d46",
-      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
-      "modified": 1735312844864,
-      "created": 1735274655339,
-      "url": "http://localhost:3000/health",
-      "name": "Health",
-      "description": "",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [
-        {
-          "name": "User-Agent",
-          "value": "insomnia/9.3.2",
-          "id": "pair_5ddb7b6ec3a24c339be362d3902fc547"
-        }
-      ],
-      "authentication": {},
-      "metaSortKey": -1735280829243,
-      "isPrivate": false,
-      "pathParameters": [],
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "wrk_3013f1bc07834376b8101a59d7574bcd",
-      "parentId": null,
-      "modified": 1735312131380,
-      "created": 1735274647532,
-      "name": "Thimbnailer API",
-      "description": "",
-      "scope": "collection",
-      "_type": "workspace"
-    },
-    {
-      "_id": "req_8b2d2a4dac394d42a9020986db787161",
-      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
-      "modified": 1735312851310,
-      "created": 1735283320176,
-      "url": "http://localhost:3000/jobs/",
-      "name": "Get Jobs",
-      "description": "",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [{ "name": "User-Agent", "value": "insomnia/9.3.2" }],
-      "authentication": {},
-      "metaSortKey": -1735280829193,
-      "isPrivate": false,
-      "pathParameters": [],
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_fbbdbea9d3054c8d997d26828e26dc0a",
-      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
-      "modified": 1735312838711,
-      "created": 1735283242543,
-      "url": "http://localhost:3000/jobs/d1693d57-ced5-42e8-abe1-6279077e07e6",
-      "name": "Get Job",
-      "description": "",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [{ "name": "User-Agent", "value": "insomnia/9.3.2" }],
-      "authentication": {},
-      "metaSortKey": -1735280829168,
-      "isPrivate": false,
-      "pathParameters": [],
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_422f48720f4549ae9700e9489c7c1489",
-      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
-      "modified": 1735312873294,
-      "created": 1735283306881,
-      "url": "http://localhost:3000/jobs/d1693d57-ced5-42e8-abe1-6279077e07e6/thumbnail",
-      "name": "Get Thumbnail",
-      "description": "",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [{ "name": "User-Agent", "value": "insomnia/9.3.2" }],
-      "authentication": {},
-      "metaSortKey": -1735280829155.5,
-      "isPrivate": false,
-      "pathParameters": [],
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_12d28b1930314dc0aecf01672db70a1b",
-      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
-      "modified": 1735312867966,
-      "created": 1735280829143,
-      "url": "http://localhost:3000/jobs",
-      "name": "Upload Job",
-      "description": "",
-      "method": "POST",
-      "body": {
-        "mimeType": "multipart/form-data",
-        "params": [
-          {
-            "id": "pair_53397c5f6ae341bbb951cb9f620512be",
-            "name": "image",
-            "value": "",
-            "description": "",
-            "disabled": false,
-            "type": "file"
-          }
-        ]
-      },
-      "parameters": [],
-      "headers": [
-        { "name": "Content-Type", "value": "multipart/form-data" },
-        { "name": "User-Agent", "value": "insomnia/9.3.2" }
-      ],
-      "authentication": {},
-      "metaSortKey": -1735280829055.5,
-      "isPrivate": false,
-      "pathParameters": [],
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "env_07d9dfd128d80e278b30d3210a6a740d34013cc7",
-      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
-      "modified": 1735274647534,
-      "created": 1735274647534,
-      "name": "Base Environment",
-      "data": {},
-      "dataPropertyOrder": null,
-      "color": null,
-      "isPrivate": false,
-      "metaSortKey": 1735274647534,
-      "_type": "environment"
-    },
-    {
-      "_id": "jar_07d9dfd128d80e278b30d3210a6a740d34013cc7",
-      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
-      "modified": 1735274647536,
-      "created": 1735274647536,
-      "name": "Default Jar",
-      "cookies": [],
-      "_type": "cookie_jar"
-    }
-  ]
-}
-```
-
-</details>
+If you use [Insomia](https://insomnia.rest/), here is the [API collection json export](docs/insomnia-collection.json).
 
 Otherwise, here are all available API endpoints:
 
@@ -222,16 +43,16 @@ Otherwise, here are all available API endpoints:
 
 The system consists of three main services:
 
-- `api` - a simple express server responsible for creating and retrievign jobs.
+- `api` - a simple express server responsible for creating and retrieve jobs.
   Images stored in Minio (S3 compatible storage), job's metadata stored in Postgres, and messages stored in Redis with BullMQ.
 
 - `processor` - a worker that processes the enqueued jobs. It downloads the original image from Minio, creates the thumbnail 100x100 version, and uploads the result back to Minio.
 
 - `migrator` - a service powered by drizzle-kit to handle database schema migrations. This service is executed before the application launches but after depending services are up (see below).
 
-They rely on the following services that can be hosted separately if needed:
+They rely on the following services:
 
-- `minio` - S3 compatible srotage, it can easily be swapped with any other S3 provider.
+- `minio` - S3 compatible storage. It can be swapped with any other S3 provider with minimal changes.
 
 - `postgres` - database to store job's metadata.
 
@@ -239,52 +60,48 @@ They rely on the following services that can be hosted separately if needed:
 
 ## Reasoning
 
-1. Architecture and communication:
+### Architectural decisions
 
-- I chose to use a distributed queue over simpler webhooks for reliability and scalability. It gives clear separation of concerns - the `api` service fucuses on handling requests and saving data, while the `processor` handles the image processing asynchronously.
-- For object storage I went with minio for it's S3 compatibility, meaning we can easily switch to any S3 provider as needed.
-- The application is built with hexagonal architecture in mind allowing easy implementation of different adapters. As long as adapters match the ports, it's simple and quick to swap technologies.
-- I decided to use drizzle for it's typescript support. It provides a good set of tools without abstracting the details allowing efficient queries. It also handles schema migrations automatically with it's drizzle-kit.
+- I use a distributed queue over simpler webhooks for reliability, scalability, and resilience. Even if the `processor` service is down, all enqueued messages will begin processing as soon as at least one instance of the `processor` is up and running.
+- For object storage I went with Minio for its S3 compatibility, it can be replaced with any S3 provider with minimal changes.
+- The application is built with hexagonal architecture in mind allowing easy implementation of different adapters.
+- Database schema definition and migrations powered by drizzle. It's a great mixture of tools providing TS support without abstracting too much. The migration tool is an added benefit I would like to highlight.
 
-2. Monorepo setup
+### Monorepo setup
 
-- I'm a big fan and contributor of pnpm. It's workspace protocol powers this monorepo and allows easy code sharing across services. It also makes dependency management exceptionally easy.
-- For build system I often go with Nx, but decided to give Turborepo a chance. For what is required on this project, it works greatly. I primarily use it for task execution, eg. build dependencies before dependents.
+- I'm a big fan and contributor of pnpm. It's workspace protocol powers this monorepo.
+- For the build system I usually go with Nx, but went with Turborepo this time as it became more robust in the recent years since I last time tried it. For my requirements, it's great, and might be my new go-to build system.
 - Test runner for CI is implemented with GHA using docker compose, see details in `Makefile` and `.github/ci.compose.yml`.
-- Versioning is configured with [changesets](https://github.com/changesets/changesets). I love the file-based tracking and automated bumping with changelog generation. It can be paired with a bot and gha workflow to automate the release and publishing process, but I won't set it up for this project.
+- Versioning is powered by [changesets](https://github.com/changesets/changesets). I love their file-based tracking, fantastic monorepo support, automatic version bumping, and changelog generation. It can be paired with a bot and gha workflow to automate the release and publishing process, but at the moment I do not consider implementing this part, mostly because I don't expect often releases on this project.
 
-3. Containerized services
+### Containerization
 
-- All services run in containers and can easily by started by `compose` (supports all container engines but might require docker cli bindings, depending on the engine)
-- Each service is stateless, so scaling horizontally is straightforward.
-- I use sindle `Dockerfile` to get maximum efficiency out of pnpm. All packages built and deployed in multiple stages with local caching. I also use `pnpm deploy` to produce slim distributions. Note: to optimize for CI runs it would require small update for it's caching mechanism.
+- All services run in containers and can be started with `docker compose up`, however, I recommend using provided `Makefile` to execute tasks.
+- Each service is stateless, scaling is straightforward.
+- There is single `Dockerfile` to get maximum efficiency out of pnpm. All packages built and deployed in multiple stages with local caching. PNPM also powers production of deployable packages with `pnpm deploy` command.
+
+> [!NOTE]
+> The caching is configured for local development only.
+> To optimize for CI runs it would require small update to support different caching types, such as `gha`.
 
 ## Trade-offs and what's left out
 
-- A proper observability stack (eg. Prometherus, Grafana, ELK, Datadog, New Relic) was skipped due to time constraints.
+- A proper observability stack (eg. Prometherus, Grafana, ELK, Datadog, New Relic) was skipped due to time constraints and complexity.
   In a production environment, we'd have structured logs, metrics, tracing, and alerting to identify and troubleshoot issues.
 - Error handling is currently minimal. In production, each service would gracefully handle and report issues.
 - Input validation is skipped. I would implement input validation with Zod using express middleware. Proper validation would be essential in production environment.
-  There's some form of validation, but not for inputs.
-- OpenAPI spec is missing. Adding this would make the APIs more transpacent and serve as documentation for other developers.
+  There's some form of validation, but not for inputs (yet).
+- OpenAPI spec is missing. Adding this would make the APIs more transparent and serve as documentation.
 - There's an issue with naming collisions. Right now, if someone uploads a file named `thumbnail`, there could be a collision between original image and thumbnail. The fix is simple, a different naming scheme could be employed, but it's importance depends whether I wish to preserve the original image or not.
-- The system is mostly stateless and scalable, but the job statuses might need refinement to ensure two processors don't process the same job simultaneously. This would require locking or load balancing.
-- Tests implemented with vitest, I only covered a few units so far.
+- Tests implemented with vitest, but so far only a few units are covered.
 
-## Future imporovements and production readiness
+## Future plans
 
-- Scalability
+I built this service as an assignment but now consider completing it and bringing to production. I might add UI service as well, I wanted to try Astro for a very long time, this might be it.
 
-Each service can scale horizontally by adding more containers. BullMQ can handle increased queue throughput, and Redis, Postgres, and Minio can be upgraded to managed services with minimal changes.
+To address production readiness I would consider:
 
-- Perormance
-
-Processor tasks can be parallelized if image transformations become a bottleneck. And Postgres indexing and query optimization can help under high W/R loads.
-
-- Monitoring
-
-Application metrics and log collection with alerting would be required for production environment as well.
-
-- Security
-
-As it stands there's not access control. For production environment all endpoints would require some for of restricted access.
+- Scalability: Each service already can scale horizontally. BullMQ can handle increased queue throughput, and Redis, Postgres, and Minio can be upgraded to managed services with minimal changes. That is considering I don't wish to maintain self-hosted options myself.
+- Performance: Processor service is likely the heavies part, but iirc BullMQ already balances the load, additional instances can be brought up for faster processing.
+- Monitoring: Goes without saying, for production I would likely go with self-hosted community version of [hyperdx](https://github.com/hyperdxio/hyperdx) (which I happened to contribute to btw).
+- Security: There's no access control and rate-limiting as it wasn't a requirement. Going production I would consider adding at least one of those.

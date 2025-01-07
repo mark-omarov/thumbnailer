@@ -1,0 +1,202 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2024-12-27T15:21:22.090Z",
+  "__export_source": "insomnia.desktop.app:v9.3.2",
+  "resources": [
+    {
+      "_id": "req_40ca0a0efe96494fb37bc5bc66433d46",
+      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
+      "modified": 1735312844864,
+      "created": 1735274655339,
+      "url": "http://localhost:3000/health",
+      "name": "Health",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/9.3.2",
+          "id": "pair_5ddb7b6ec3a24c339be362d3902fc547"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1735280829243,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_3013f1bc07834376b8101a59d7574bcd",
+      "parentId": null,
+      "modified": 1735312131380,
+      "created": 1735274647532,
+      "name": "Thimbnailer API",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_8b2d2a4dac394d42a9020986db787161",
+      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
+      "modified": 1735312851310,
+      "created": 1735283320176,
+      "url": "http://localhost:3000/jobs/",
+      "name": "Get Jobs",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/9.3.2"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1735280829193,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_fbbdbea9d3054c8d997d26828e26dc0a",
+      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
+      "modified": 1735312838711,
+      "created": 1735283242543,
+      "url": "http://localhost:3000/jobs/d1693d57-ced5-42e8-abe1-6279077e07e6",
+      "name": "Get Job",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/9.3.2"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1735280829168,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_422f48720f4549ae9700e9489c7c1489",
+      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
+      "modified": 1735312873294,
+      "created": 1735283306881,
+      "url": "http://localhost:3000/jobs/d1693d57-ced5-42e8-abe1-6279077e07e6/thumbnail",
+      "name": "Get Thumbnail",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/9.3.2"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1735280829155.5,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_12d28b1930314dc0aecf01672db70a1b",
+      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
+      "modified": 1735312867966,
+      "created": 1735280829143,
+      "url": "http://localhost:3000/jobs",
+      "name": "Upload Job",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "id": "pair_53397c5f6ae341bbb951cb9f620512be",
+            "name": "image",
+            "value": "",
+            "description": "",
+            "disabled": false,
+            "type": "file"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "multipart/form-data"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/9.3.2"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1735280829055.5,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_07d9dfd128d80e278b30d3210a6a740d34013cc7",
+      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
+      "modified": 1735274647534,
+      "created": 1735274647534,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1735274647534,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_07d9dfd128d80e278b30d3210a6a740d34013cc7",
+      "parentId": "wrk_3013f1bc07834376b8101a59d7574bcd",
+      "modified": 1735274647536,
+      "created": 1735274647536,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    }
+  ]
+}
