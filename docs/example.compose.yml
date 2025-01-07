@@ -1,0 +1,135 @@
+services:
+  db:
+    container_name: thumbnailer-db
+    image: postgres:17.2
+    restart: always
+    shm_size: 128mb
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=thumbnailer
+    volumes:
+      - pg:/var/lib/postgresql/data
+    networks:
+      - internal
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d thumbnailer || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  minio:
+    container_name: thumbnailer-storage
+    image: minio/minio:RELEASE.2024-12-18T13-15-44Z-cpuv1
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - internal
+    healthcheck:
+      test: ['CMD', 'mc', 'ready', 'local']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  redis:
+    container_name: thumbnailer-redis
+    image: redis:7.4.1-alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+    networks:
+      - internal
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  migrator:
+    container_name: thumbnailer-migrator
+    image: ghcr.io/mark-omarov/thumbnailer:0.1.2-migrator
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/thumbnailer
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - internal
+
+  api:
+    container_name: thumbnailer-api
+    image: ghcr.io/mark-omarov/thumbnailer:0.1.2-api
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/thumbnailer
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_SSL=false
+      - MINIO_BUCKET=thumbnails
+      - PROCESSOR_WEBHOOK_URL=http://processor:3001/process
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      migrator:
+        condition: service_started
+    networks:
+      - internal
+
+  processor:
+    container_name: thumbnailer-processor
+    image: ghcr.io/mark-omarov/thumbnailer:0.1.2-processor
+    ports:
+      - 3001:3001
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/thumbnailer
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_SSL=false
+      - MINIO_BUCKET=thumbnails
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      migrator:
+        condition: service_started
+    networks:
+      - internal
+
+networks:
+  internal:
+volumes:
+  pg:
+  minio:
+  redis:
