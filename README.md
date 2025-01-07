@@ -92,7 +92,6 @@ They rely on the following services:
 - Input validation is skipped. I would implement input validation with Zod using express middleware. Proper validation would be essential in production environment.
   There's some form of validation, but not for inputs (yet).
 - OpenAPI spec is missing. Adding this would make the APIs more transparent and serve as documentation.
-- There's an issue with naming collisions. Right now, if someone uploads a file named `thumbnail`, there could be a collision between original image and thumbnail. The fix is simple, a different naming scheme could be employed, but it's importance depends whether I wish to preserve the original image or not.
 - Tests implemented with vitest, but so far only a few units are covered.
 
 ## Future plans
