@@ -12,6 +12,7 @@ const envSchema = z.object({
   REDIS_HOST: z.string(),
   REDIS_PORT: z.preprocess((val) => parseInt(val as string, 10), z.number()),
   PORT: z.number().default(3000),
+  MAX_FILE_SIZE: z.number().default(15 * 1024 * 1024), // 15MB
 });
 
 export const env = envSchema.parse(process.env);

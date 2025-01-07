@@ -1,3 +1,4 @@
+import path from 'node:path';
 import type { Request, Response } from 'express';
 import { createMinioClient } from '@thumbnailer/minio';
 import {
@@ -36,7 +37,7 @@ export async function createJobController(
     const jobId = uuid();
     const now = new Date();
 
-    const minioObjectKey = `${jobId}/${req.file.originalname}`;
+    const minioObjectKey = `${jobId}/original${path.extname(req.file.originalname)}`;
     await minioClient.putObject(
       env.MINIO_BUCKET,
       minioObjectKey,
