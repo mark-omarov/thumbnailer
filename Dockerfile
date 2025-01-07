@@ -19,16 +19,19 @@ RUN pnpm install --frozen-lockfile
 CMD [ "pnpm", "exec" ,"turbo", "test" ]
 
 FROM base AS migrator
+LABEL org.opencontainers.image.source="https://github.com/mark-omarov/thumbnailer"
 COPY --from=build /prod/migrator /prod/migrator
 WORKDIR /prod/migrator
 CMD [ "pnpm", "migrate" ]
 
 FROM base AS api
+LABEL org.opencontainers.image.source="https://github.com/mark-omarov/thumbnailer"
 COPY --from=build /prod/api /prod/api
 WORKDIR /prod/api
 CMD [ "node", "dist/index.js" ]
 
 FROM base AS processor
+LABEL org.opencontainers.image.source="https://github.com/mark-omarov/thumbnailer"
 COPY --from=build /prod/processor /prod/processor
 WORKDIR /prod/processor
 CMD [ "node", "dist/index.js" ]

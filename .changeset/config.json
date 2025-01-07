@@ -2,20 +2,20 @@
   "$schema": "https://unpkg.com/@changesets/config@3.0.5/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "fixed": [],
-  "linked": [
+  "fixed": [
     [
       "@thumbnailer/api",
       "@thumbnailer/processor",
       "@thumbnailer/migrator"
     ]
   ],
+  "linked": [],
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [],
   "privatePackages": {
     "version": true,
-    "tag": true
+    "tag": false
   }
 }
