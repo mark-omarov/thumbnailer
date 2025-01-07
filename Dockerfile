@@ -7,10 +7,10 @@ FROM base AS build
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm run -r build
-RUN pnpm deploy --filter=migrator --prod /prod/migrator
-RUN pnpm deploy --filter=api --prod /prod/api
-RUN pnpm deploy --filter=processor --prod /prod/processor
+RUN pnpm exec turbo @thumbnailer/api#build @thumbnailer/processor#build && \
+  pnpm deploy --filter=migrator --prod /prod/migrator && \
+  pnpm deploy --filter=api --prod /prod/api && \
+  pnpm deploy --filter=processor --prod /prod/processor
 
 FROM base AS tester
 COPY . /usr/src/app
