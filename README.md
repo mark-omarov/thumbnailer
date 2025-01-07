@@ -223,7 +223,7 @@ Otherwise, here are all available API endpoints:
 The system consists of three main services:
 
 - `api` - a simple express server responsible for creating and retrievign jobs.
-  When a user upploads an image, it's stored in Minio (S3 compatible storage), saves the job's metadata in Postgres, and enqueus the message via BullMQ (Redis-based job queue).
+  Images stored in Minio (S3 compatible storage), job's metadata stored in Postgres, and messages stored in Redis with BullMQ.
 
 - `processor` - a worker that processes the enqueued jobs. It downloads the original image from Minio, creates the thumbnail 100x100 version, and uploads the result back to Minio.
 
@@ -241,9 +241,9 @@ They rely on the following services that can be hosted separately if needed:
 
 1. Architecture and communication:
 
-- I chose to use a distribured queue over simpler webhooks for reliability and scalability. It gives clear separation of concerns - the `api` service fucuses on handling requests and saving data, while the `processor` handles the image processing asynchronously.
-- For object storage I went with minio for it's S3 compatilibity, meaning we can easily switch to any S3 provider as needed.
-- The application is build with hexagonal architecture in mind allowing easy implementation of different adapters. As long as adapters match the ports, it's simple and quick to swap technologies.
+- I chose to use a distributed queue over simpler webhooks for reliability and scalability. It gives clear separation of concerns - the `api` service fucuses on handling requests and saving data, while the `processor` handles the image processing asynchronously.
+- For object storage I went with minio for it's S3 compatibility, meaning we can easily switch to any S3 provider as needed.
+- The application is built with hexagonal architecture in mind allowing easy implementation of different adapters. As long as adapters match the ports, it's simple and quick to swap technologies.
 - I decided to use drizzle for it's typescript support. It provides a good set of tools without abstracting the details allowing efficient queries. It also handles schema migrations automatically with it's drizzle-kit.
 
 2. Monorepo setup
@@ -251,7 +251,7 @@ They rely on the following services that can be hosted separately if needed:
 - I'm a big fan and contributor of pnpm. It's workspace protocol powers this monorepo and allows easy code sharing across services. It also makes dependency management exceptionally easy.
 - For build system I often go with Nx, but decided to give Turborepo a chance. For what is required on this project, it works greatly. I primarily use it for task execution, eg. build dependencies before dependents.
 - Test runner for CI is implemented with GHA using docker compose, see details in `Makefile` and `.github/ci.compose.yml`.
-- Versioning is configured with [changesets](https://github.com/changesets/changesets). I love the file-based tracking and automated bumping and changelog generation. It can be paired with a bot and gha workflow to automate the release and publishing process, but I won't set it up for this project.
+- Versioning is configured with [changesets](https://github.com/changesets/changesets). I love the file-based tracking and automated bumping with changelog generation. It can be paired with a bot and gha workflow to automate the release and publishing process, but I won't set it up for this project.
 
 3. Containerized services
 
@@ -267,7 +267,7 @@ They rely on the following services that can be hosted separately if needed:
 - Input validation is skipped. I would implement input validation with Zod using express middleware. Proper validation would be essential in production environment.
   There's some form of validation, but not for inputs.
 - OpenAPI spec is missing. Adding this would make the APIs more transpacent and serve as documentation for other developers.
-- There's an issue with naming collisions. Right now, if someone uploads a file named `thumbnail`, there could be a collision between original image and thumbnail. The fix is simple, a different naming schemen could be employed, but it's importance depends whether I wish to preserve the original image or not.
+- There's an issue with naming collisions. Right now, if someone uploads a file named `thumbnail`, there could be a collision between original image and thumbnail. The fix is simple, a different naming scheme could be employed, but it's importance depends whether I wish to preserve the original image or not.
 - The system is mostly stateless and scalable, but the job statuses might need refinement to ensure two processors don't process the same job simultaneously. This would require locking or load balancing.
 - Tests implemented with vitest, I only covered a few units so far.
 
