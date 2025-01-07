@@ -1,5 +1,5 @@
 {
-  "id": "84c3e7a6-ca0e-4def-873e-3dc270aaf60c",
+  "id": "3b87cad9-ebf1-4226-a05d-f75e056232f5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -16,7 +16,8 @@
         },
         "status": {
           "name": "status",
-          "type": "varchar(50)",
+          "type": "status",
+          "typeSchema": "application",
           "primaryKey": false,
           "notNull": true
         },
@@ -54,7 +55,18 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "application.status": {
+      "name": "status",
+      "schema": "application",
+      "values": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ]
+    }
+  },
   "schemas": {
     "application": "application"
   },

@@ -2,7 +2,7 @@ import { pgEnum, pgSchema, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const applicationSchema = pgSchema('application');
 
-const status = pgEnum('status', [
+export const status = applicationSchema.enum('status', [
   'pending',
   'processing',
   'completed',
