@@ -2,7 +2,12 @@ import { pgEnum, pgSchema, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const applicationSchema = pgSchema('application');
 
-const status = pgEnum('status', ['processing', 'completed', 'failed']);
+const status = pgEnum('status', [
+  'pending',
+  'processing',
+  'completed',
+  'failed',
+]);
 
 export const jobs = applicationSchema.table('jobs', {
   jobId: uuid('job_id').primaryKey().notNull(),

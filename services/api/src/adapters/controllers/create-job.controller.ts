@@ -45,7 +45,7 @@ export async function createJobController(
 
     await jobRepository.insertJob({
       jobId,
-      status: 'processing',
+      status: 'pending',
       originalImagePath: minioObjectKey,
       thumbnailImagePath: null,
       createdAt: now,
