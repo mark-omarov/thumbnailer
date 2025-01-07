@@ -1,3 +1,4 @@
+import path from 'node:path';
 import type {
   StoragePort,
   JobRepositoryPort,
@@ -35,7 +36,7 @@ export async function processThumbnail(
 ): Promise<void> {
   const sourceBuffer = await storage.getObject(originalImagePath);
   const thumbnailBuffer = await createThumbnail(sourceBuffer);
-  const thumbnailKey = `${jobId}/thumbnail.jpg`;
+  const thumbnailKey = `${jobId}/thumbnail${path.extname(originalImagePath)}`;
 
   await storage.putObject(thumbnailKey, thumbnailBuffer);
   await updateJobStatus(jobId, 'completed', thumbnailKey, jobRepository);
