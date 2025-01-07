@@ -27,6 +27,11 @@ make init
 
 You only need it for LSP and editor support, unless you enjoy pain, of course.
 
+## Deployment example
+
+All services are published to [ghcr](https://github.com/mark-omarov/thumbnailer/pkgs/container/thumbnailer) and can be deployed anywhere.
+You can see an example compose file [here](docs/example.compose.yml).
+
 ### Available APIs
 
 If you use [Insomia](https://insomnia.rest/), here is the [API collection json export](docs/insomnia-collection.json).
