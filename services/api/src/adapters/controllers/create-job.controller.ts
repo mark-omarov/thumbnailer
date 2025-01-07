@@ -1,6 +1,6 @@
 import path from 'node:path';
 import type { Request, Response } from 'express';
-import { createMinioClient } from '@thumbnailer/minio';
+import { createMinioClient, ensureBucketExists } from '@thumbnailer/minio';
 import {
   createPgJobRepositoryAdapter,
   createBullmqJobQueueAdapter,
@@ -33,6 +33,8 @@ export async function createJobController(
       secretKey: env.MINIO_SECRET_KEY,
       useSSL: env.MINIO_SSL,
     });
+
+    await ensureBucketExists(minioClient, env.MINIO_BUCKET);
 
     const jobId = uuid();
     const now = new Date();

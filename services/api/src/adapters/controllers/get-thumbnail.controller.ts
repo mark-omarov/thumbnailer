@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import { createPgJobRepositoryAdapter } from '@thumbnailer/shared';
-import { createMinioClient } from '@thumbnailer/minio';
+import { createMinioClient, ensureBucketExists } from '@thumbnailer/minio';
 
 import { env } from '../../env.js';
 
@@ -34,6 +34,8 @@ export async function getThumbnailController(
     secretKey: env.MINIO_SECRET_KEY,
     useSSL: env.MINIO_SSL,
   });
+
+  await ensureBucketExists(minioClient, env.MINIO_BUCKET);
 
   const objectStream = await minioClient.getObject(
     env.MINIO_BUCKET,

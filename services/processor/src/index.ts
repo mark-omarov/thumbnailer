@@ -1,4 +1,4 @@
-import { createMinioClient } from '@thumbnailer/minio';
+import { createMinioClient, ensureBucketExists } from '@thumbnailer/minio';
 import {
   createMinioStorageAdapter,
   createPgJobRepositoryAdapter,
@@ -20,6 +20,8 @@ async function main() {
     secretKey: env.MINIO_SECRET_KEY,
     useSSL: env.MINIO_SSL,
   });
+
+  await ensureBucketExists(minioClient, env.MINIO_BUCKET);
 
   const storage = createMinioStorageAdapter(minioClient, env.MINIO_BUCKET);
   const jobRepository = createPgJobRepositoryAdapter();
