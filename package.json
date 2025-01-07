@@ -1,6 +1,6 @@
 {
   "name": "thumbnailer",
-  "version": "0.0.0",
+  "version": "0.1.2",
   "description": "Generate thumbnails from images",
   "author": "Mark Omarov",
   "license": "MIT",
