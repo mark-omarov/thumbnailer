@@ -58,6 +58,7 @@ export async function createJobController(
     await queue.add(bullmqJobs.createThumbnail, {
       jobId,
       originalImagePath: minioObjectKey,
+      size: getThumbnailSize(req.query.size as string),
     });
 
     res.status(201).json({ jobId });
@@ -65,4 +66,12 @@ export async function createJobController(
     console.error(error);
     res.status(500).json({ message: 'Failed to create job.' });
   }
+}
+
+function getThumbnailSize(sizeStr: string): { width: number; height: number } {
+  const size = { width: 100, height: 100 };
+  if (!sizeStr) return size;
+  const [width = 100, height = 100] = sizeStr.split('x').map(Number);
+  if (isNaN(width) || isNaN(height) || !width || !height) return size;
+  return { width, height };
 }

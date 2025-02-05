@@ -6,6 +6,9 @@ import type {
 } from '@thumbnailer/shared';
 
 type ProcessThumbnaiOpts = {
+  jobId: string;
+  originalImagePath: string;
+  size: { width: number; height: number };
   storage: StoragePort;
   jobRepository: JobRepositoryPort;
 };
@@ -29,20 +32,25 @@ export async function updateJobStatus(
   });
 }
 
-export async function processThumbnail(
-  jobId: string,
-  originalImagePath: string,
-  { storage, jobRepository }: ProcessThumbnaiOpts
-): Promise<void> {
+export async function processThumbnail({
+  jobId,
+  originalImagePath,
+  size,
+  storage,
+  jobRepository,
+}: ProcessThumbnaiOpts) {
   const sourceBuffer = await storage.getObject(originalImagePath);
-  const thumbnailBuffer = await createThumbnail(sourceBuffer);
+  const thumbnailBuffer = await createThumbnail(sourceBuffer, size);
   const thumbnailKey = `${jobId}/thumbnail${path.extname(originalImagePath)}`;
 
   await storage.putObject(thumbnailKey, thumbnailBuffer);
   await updateJobStatus(jobId, 'completed', thumbnailKey, jobRepository);
 }
 
-async function createThumbnail(buffer: Buffer): Promise<Buffer> {
+async function createThumbnail(
+  buffer: Buffer,
+  size: { width: number; height: number }
+): Promise<Buffer> {
   const sharp = await import('sharp');
-  return sharp.default(buffer).resize(100, 100).toBuffer();
+  return sharp.default(buffer).resize(size.width, size.height).toBuffer();
 }

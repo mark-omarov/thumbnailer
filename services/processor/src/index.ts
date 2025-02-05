@@ -34,8 +34,12 @@ async function main() {
     try {
       switch (job.name) {
         case bullmqJobs.createThumbnail:
-          const { jobId, originalImagePath } = job.data;
-          await processThumbnail(jobId, originalImagePath, {
+          const { jobId, originalImagePath, size } = job.data;
+          console.log(size);
+          await processThumbnail({
+            jobId,
+            originalImagePath,
+            size,
             storage,
             jobRepository,
           });
