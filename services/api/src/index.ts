@@ -1,5 +1,5 @@
-import { createApp } from './infrastructure/express.js';
 import { env } from './env.js';
+import { createApp } from './interfaces/http/express.js';
 
 async function main() {
   const app = createApp();
@@ -9,8 +9,6 @@ async function main() {
   });
 }
 
-main().catch((err) => console.error(err));
-
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
@@ -18,3 +16,5 @@ process.on('unhandledRejection', (reason, promise) => {
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
 });
+
+main().catch((err) => console.error(err));

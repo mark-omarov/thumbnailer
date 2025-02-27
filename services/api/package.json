@@ -18,18 +18,24 @@
     "node": ">=22.12"
   },
   "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^7.3.0",
+    "@thumbnailer/domain-core": "workspace:*",
     "@thumbnailer/db": "workspace:*",
     "@thumbnailer/minio": "workspace:*",
     "@thumbnailer/shared": "workspace:*",
     "drizzle-orm": "^0.38.3",
-    "express": "^4.21.2",
+    "express": "^5.0.1",
+    "express-zod-api": "^22.11.2",
+    "http-errors": "^2.0.0",
     "multer": "^1.4.5-lts.1",
     "uuid": "^11.0.3",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "typescript": "^5.7.2",
     "@types/express": "^5.0.0",
-    "@types/multer": "^1.4.12"
+    "@types/http-errors": "^2.0.4",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
   }
 }
