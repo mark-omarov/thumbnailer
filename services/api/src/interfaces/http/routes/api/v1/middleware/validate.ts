@@ -8,8 +8,6 @@ export function validate(schema: ZodSchema): RequestHandler {
         params: req.params,
         body: req.body,
         query: req.query,
-        file: req.file,
-        files: req.files,
       });
       return next();
     } catch (e: any) {

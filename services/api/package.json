@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^7.3.0",
-    "@thumbnailer/domain-core": "workspace:*",
     "@thumbnailer/db": "workspace:*",
+    "@thumbnailer/domain-core": "workspace:*",
     "@thumbnailer/minio": "workspace:*",
     "@thumbnailer/shared": "workspace:*",
     "drizzle-orm": "^0.38.3",
@@ -29,6 +29,7 @@
     "http-errors": "^2.0.0",
     "multer": "^1.4.5-lts.1",
     "uuid": "^11.0.3",
+    "yaml": "^2.7.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {

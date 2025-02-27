@@ -1,9 +1,6 @@
 import { z } from 'zod';
 
-export const uploadImageFormSchema = z.object({
-  file: z.any().refine((val) => val != null, {
-    message: 'File is required',
-  }),
+export const uploadImageBodySchema = z.object({
   body: z.object({
     size: z
       .string()
@@ -11,8 +8,12 @@ export const uploadImageFormSchema = z.object({
         message: "Size must be in the format 'NxN', e.g. '300x300'",
       })
       .optional()
-      .default('300x300'),
+      .default('300x300')
+      .openapi('UploadImageSize', {
+        description:
+          "Desired thumbnail size in the format 'NxN', e.g. '300x300'",
+      }),
   }),
 });
 
-export type CreateThumbnailFormInput = z.infer<typeof uploadImageFormSchema>;
+export type UploadImageBodySchema = z.infer<typeof uploadImageBodySchema>;

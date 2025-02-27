@@ -1,7 +1,11 @@
 import express from 'express';
+import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
+import { z } from 'zod';
 
 import { errorHandler } from './middleware/error-handler.js';
 import { router } from './routes/api/v1/index.js';
+
+extendZodWithOpenApi(z);
 
 export const createApp = () => {
   const app = express();

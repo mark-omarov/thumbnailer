@@ -162,6 +162,9 @@ importers:
       uuid:
         specifier: ^11.0.3
         version: 11.0.3
+      yaml:
+        specifier: ^2.7.0
+        version: 2.7.0
       zod:
         specifier: ^3.24.1
         version: 3.24.1
