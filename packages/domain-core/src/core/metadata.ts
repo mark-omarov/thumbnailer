@@ -12,5 +12,4 @@ export type Metadata = {
   uploadedImagePath: string;
   thumbnailImagePath?: string;
   createdAt: Date;
-  updatedAt: Date;
 };

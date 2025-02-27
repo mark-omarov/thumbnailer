@@ -1,31 +1,30 @@
 import { pgSchema, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { createSelectSchema, createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
+import { uuidv7 } from 'uuidv7';
 
 export const applicationSchema = pgSchema('application');
 
-export const drizzleMetadataStatus = applicationSchema.enum('status', [
+export const metadataStatus = applicationSchema.enum('status', [
   'pending',
   'processing',
   'completed',
   'failed',
 ]);
 
-export const drizzleMetadata = applicationSchema.table('metadata', {
-  id: uuid('id').primaryKey().notNull(),
-  status: drizzleMetadataStatus('status').notNull(),
+export const metadata = applicationSchema.table('metadata', {
+  id: uuid('id')
+    .primaryKey()
+    .notNull()
+    .$defaultFn(() => uuidv7()),
+  status: metadataStatus('status').notNull(),
   uploadedImagePath: text('upload_image_path').notNull(),
   thumbnailImagePath: text('thumbnail_image_path'),
-  createdAt: timestamp('created_at').notNull(),
-  updatedAt: timestamp('updated_at').notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
 });
 
-export const drizzleMetadataSchema = z.object({
-  id: z.string().uuid(),
-  status: z.enum(['pending', 'processing', 'completed', 'failed']),
-  uploadedImagePath: z.string(),
-  thumbnailImagePath: z.string().nullable(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-});
+export const metadataSelectSchema = createSelectSchema(metadata);
+export const metadataInsertSchema = createInsertSchema(metadata);
 
-export type DrizzleMetadata = z.infer<typeof drizzleMetadataSchema>;
+export type MetadataSelectSchema = z.infer<typeof metadataSelectSchema>;
+export type MetadataInsertSchema = z.infer<typeof metadataInsertSchema>;
