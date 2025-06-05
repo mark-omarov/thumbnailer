@@ -23,7 +23,7 @@
     "@thumbnailer/shared": "workspace:*",
     "drizzle-orm": "^0.38.3",
     "express": "^4.21.2",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.0.1",
     "uuid": "^11.0.3",
     "zod": "^3.24.1"
   },
