@@ -21,7 +21,7 @@
     "@thumbnailer/db": "workspace:*",
     "@thumbnailer/minio": "workspace:*",
     "@thumbnailer/shared": "workspace:*",
-    "drizzle-orm": "^0.38.3",
+    "drizzle-orm": "^0.45.2",
     "express": "^4.21.2",
     "multer": "^1.4.5-lts.1",
     "uuid": "^11.0.3",
